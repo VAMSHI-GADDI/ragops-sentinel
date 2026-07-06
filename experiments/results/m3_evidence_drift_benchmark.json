@@ -1,0 +1,154 @@
+{
+  "baseline_no_temporal_filter": {
+    "num_examples": 2,
+    "mean_context_precision": 0.6,
+    "mean_context_recall": 1.0,
+    "mean_answer_relevance": 1.0,
+    "mean_faithfulness": 0.7308,
+    "mean_unsupported_claim_rate": 0.2692,
+    "mean_stale_evidence_rate": 0.2,
+    "total_stale_chunks": 2,
+    "diagnosis_accuracy_on_labeled_failures": 1.0
+  },
+  "temporal_latest_only_filter": {
+    "num_examples": 2,
+    "mean_context_precision": 0.5,
+    "mean_context_recall": 1.0,
+    "mean_answer_relevance": 1.0,
+    "mean_faithfulness": 0.8013,
+    "mean_unsupported_claim_rate": 0.1987,
+    "mean_stale_evidence_rate": 0.0,
+    "total_stale_chunks": 0,
+    "diagnosis_accuracy_on_labeled_failures": 0.0
+  },
+  "delta": {
+    "stale_evidence_rate_reduction": 0.2,
+    "stale_chunk_reduction": 2
+  },
+  "examples": {
+    "baseline_no_temporal_filter": [
+      {
+        "example_id": "drift_001",
+        "context_precision": 0.4,
+        "context_recall": 1.0,
+        "answer_relevance": 1.0,
+        "faithfulness": 0.7692,
+        "unsupported_claim_rate": 0.2308,
+        "stale_evidence_rate": 0.2,
+        "retrieved_chunks": 5,
+        "failure_detected": true,
+        "failure_code": "F2_STALE_DOCUMENT",
+        "expected_failure_type": "F2_STALE_DOCUMENT",
+        "diagnosis_correct": true,
+        "stale_chunks": 1,
+        "conflicting_versions_detected": true,
+        "latest_only": false,
+        "retrieved_version_ids": [
+          "ragops_retention_policy:8b98397a6912",
+          "ragops_retention_policy:a21a23c0ae90",
+          "ragops_sentinel_design:c139a13fb1f4",
+          "mlflow_tracking:dd9e5290ac80",
+          "qdrant_vector_search:672228e77f23"
+        ],
+        "retrieved_freshness_scores": [
+          0.25,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "example_id": "drift_002",
+        "context_precision": 0.8,
+        "context_recall": 1.0,
+        "answer_relevance": 1.0,
+        "faithfulness": 0.6923,
+        "unsupported_claim_rate": 0.3077,
+        "stale_evidence_rate": 0.2,
+        "retrieved_chunks": 5,
+        "failure_detected": true,
+        "failure_code": "F2_STALE_DOCUMENT",
+        "expected_failure_type": "F2_STALE_DOCUMENT",
+        "diagnosis_correct": true,
+        "stale_chunks": 1,
+        "conflicting_versions_detected": true,
+        "latest_only": false,
+        "retrieved_version_ids": [
+          "ragops_retention_policy:8b98397a6912",
+          "ragops_retention_policy:a21a23c0ae90",
+          "mlflow_tracking:dd9e5290ac80",
+          "qdrant_vector_search:672228e77f23",
+          "ragops_sentinel_design:c139a13fb1f4"
+        ],
+        "retrieved_freshness_scores": [
+          0.25,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ],
+    "temporal_latest_only_filter": [
+      {
+        "example_id": "drift_001",
+        "context_precision": 0.25,
+        "context_recall": 1.0,
+        "answer_relevance": 1.0,
+        "faithfulness": 0.7692,
+        "unsupported_claim_rate": 0.2308,
+        "stale_evidence_rate": 0.0,
+        "retrieved_chunks": 4,
+        "failure_detected": false,
+        "failure_code": null,
+        "expected_failure_type": "F2_STALE_DOCUMENT",
+        "diagnosis_correct": false,
+        "stale_chunks": 0,
+        "conflicting_versions_detected": false,
+        "latest_only": true,
+        "retrieved_version_ids": [
+          "ragops_retention_policy:a21a23c0ae90",
+          "ragops_sentinel_design:c139a13fb1f4",
+          "mlflow_tracking:dd9e5290ac80",
+          "qdrant_vector_search:672228e77f23"
+        ],
+        "retrieved_freshness_scores": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "example_id": "drift_002",
+        "context_precision": 0.75,
+        "context_recall": 1.0,
+        "answer_relevance": 1.0,
+        "faithfulness": 0.8333,
+        "unsupported_claim_rate": 0.1667,
+        "stale_evidence_rate": 0.0,
+        "retrieved_chunks": 4,
+        "failure_detected": false,
+        "failure_code": null,
+        "expected_failure_type": "F2_STALE_DOCUMENT",
+        "diagnosis_correct": false,
+        "stale_chunks": 0,
+        "conflicting_versions_detected": false,
+        "latest_only": true,
+        "retrieved_version_ids": [
+          "ragops_retention_policy:a21a23c0ae90",
+          "mlflow_tracking:dd9e5290ac80",
+          "qdrant_vector_search:672228e77f23",
+          "ragops_sentinel_design:c139a13fb1f4"
+        ],
+        "retrieved_freshness_scores": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ]
+  }
+}

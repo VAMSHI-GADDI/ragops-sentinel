@@ -1,0 +1,191 @@
+{
+  "summary": {
+    "num_examples": 2,
+    "repairs_applied": 2,
+    "repair_successes": 2,
+    "repair_success_rate": 1.0,
+    "before_mean_stale_evidence_rate": 0.2,
+    "after_mean_stale_evidence_rate": 0.0,
+    "before_total_stale_chunks": 2,
+    "after_total_stale_chunks": 0,
+    "mean_stale_evidence_rate_delta": -0.2,
+    "stale_chunk_reduction": 2,
+    "before_mean_context_precision": 0.6,
+    "after_mean_context_precision": 0.5,
+    "before_mean_context_recall": 1.0,
+    "after_mean_context_recall": 1.0,
+    "before_mean_faithfulness": 0.7308,
+    "after_mean_faithfulness": 0.8013,
+    "before_mean_unsupported_claim_rate": 0.2692,
+    "after_mean_unsupported_claim_rate": 0.1987,
+    "mean_latency_ms": 8215.61
+  },
+  "examples": [
+    {
+      "query": "How long does RAGOps Sentinel store query traces and diagnosis records?",
+      "action": "TEMPORAL_FILTER_RETRIEVAL",
+      "repair_applied": true,
+      "repair_success": true,
+      "before_diagnosis": {
+        "failure_detected": true,
+        "failure_code": "F2_STALE_DOCUMENT",
+        "root_component": "temporal_evidence_layer",
+        "confidence": 0.8,
+        "recommended_repair": "TEMPORAL_FILTER_RETRIEVAL",
+        "evidence": [
+          "20.00% of retrieved chunks are not marked as latest."
+        ]
+      },
+      "after_diagnosis": {
+        "failure_detected": false,
+        "failure_code": null,
+        "root_component": null,
+        "confidence": 0.8,
+        "recommended_repair": null,
+        "evidence": [
+          "No baseline failure rule fired."
+        ]
+      },
+      "before_metrics": {
+        "example_id": "drift_001",
+        "context_precision": 0.4,
+        "context_recall": 1.0,
+        "answer_relevance": 1.0,
+        "faithfulness": 0.7692,
+        "unsupported_claim_rate": 0.2308,
+        "stale_evidence_rate": 0.2,
+        "retrieved_chunks": 5,
+        "failure_detected": true,
+        "failure_code": "F2_STALE_DOCUMENT",
+        "expected_failure_type": "F2_STALE_DOCUMENT",
+        "diagnosis_correct": true,
+        "stale_chunks": 1,
+        "conflicting_versions_detected": true
+      },
+      "after_metrics": {
+        "example_id": "drift_001",
+        "context_precision": 0.25,
+        "context_recall": 1.0,
+        "answer_relevance": 1.0,
+        "faithfulness": 0.7692,
+        "unsupported_claim_rate": 0.2308,
+        "stale_evidence_rate": 0.0,
+        "retrieved_chunks": 4,
+        "failure_detected": false,
+        "failure_code": null,
+        "expected_failure_type": "F2_STALE_DOCUMENT",
+        "diagnosis_correct": false,
+        "stale_chunks": 0,
+        "conflicting_versions_detected": false
+      },
+      "deltas": {
+        "context_precision_delta": -0.15,
+        "context_recall_delta": 0.0,
+        "answer_relevance_delta": 0.0,
+        "faithfulness_delta": 0.0,
+        "unsupported_claim_rate_delta": 0.0,
+        "stale_evidence_rate_delta": -0.2,
+        "stale_chunk_delta": -1
+      },
+      "before_answer": "Baseline answer generated from retrieved evidence. The most relevant indexed evidence suggests:\n\n[1] # RAGOps Retention Policy RAGOps Sentinel stores query traces, retrieved evidence, citations, and diagnosis records for 7 days. The old policy was designed for short debugging windows and low storage cost. ## Operational rule For production incident review, engineers should only rely on the latest valid retention policy. Older versions may be kept for audit history but must not be used as current guidance.\n\n[2] # RAGOps Retention Policy RAGOps Sentinel stores query traces, retrieved evidence, citations, and diagnosis records for 90 days. The current policy was updated to support longer incident investigation, compliance review, and evidence-drift analysis. ## Operational rule For production incident review, engineers must use the latest valid retention policy. Older versions are historical records and should be treated as stale evidence.\n\n[3] # RAGOps Sentinel Design RAGOps Sentinel is designed to detect failures in production retrieval-augmented generation systems. It focuses on evidence drift, stale document retrieval, missing evidence, wrong document version retrieval, low-confidence retrieval, and unsupported answer generation. ## Failure diagnosis The first baseline uses transparent rules. Later versions will use a Sentinel Diagnosis Graph and a trained failure attribution model.\n\nThis baseline does not claim full semantic reasoning yet; use the citations and diagnosis fields for validation.",
+      "after_answer": "Baseline answer generated from retrieved evidence. The most relevant indexed evidence suggests:\n\n[1] # RAGOps Retention Policy RAGOps Sentinel stores query traces, retrieved evidence, citations, and diagnosis records for 90 days. The current policy was updated to support longer incident investigation, compliance review, and evidence-drift analysis. ## Operational rule For production incident review, engineers must use the latest valid retention policy. Older versions are historical records and should be treated as stale evidence.\n\n[2] # RAGOps Sentinel Design RAGOps Sentinel is designed to detect failures in production retrieval-augmented generation systems. It focuses on evidence drift, stale document retrieval, missing evidence, wrong document version retrieval, low-confidence retrieval, and unsupported answer generation. ## Failure diagnosis The first baseline uses transparent rules. Later versions will use a Sentinel Diagnosis Graph and a trained failure attribution model.\n\n[3] # MLflow Tracking MLflow Tracking is used to log parameters, metrics, artifacts, source information, and experiment runs. In RAGOps Sentinel, MLflow Tracking records retrieval configuration, diagnosis metrics, repair outcomes, and experiment results. ## Why it matters A research-grade RAG system must be reproducible. Each experiment should record inputs, retrieval strategy, evaluation metrics, and output artifacts.\n\nThis baseline does not claim full semantic reasoning yet; use the citations and diagnosis fields for validation.",
+      "before_version_ids": [
+        "ragops_retention_policy:8b98397a6912",
+        "ragops_retention_policy:a21a23c0ae90",
+        "ragops_sentinel_design:c139a13fb1f4",
+        "mlflow_tracking:dd9e5290ac80",
+        "qdrant_vector_search:672228e77f23"
+      ],
+      "after_version_ids": [
+        "ragops_retention_policy:a21a23c0ae90",
+        "ragops_sentinel_design:c139a13fb1f4",
+        "mlflow_tracking:dd9e5290ac80",
+        "qdrant_vector_search:672228e77f23"
+      ],
+      "latency_ms": 15738.88
+    },
+    {
+      "query": "Should engineers rely on older retention policy versions as current guidance?",
+      "action": "TEMPORAL_FILTER_RETRIEVAL",
+      "repair_applied": true,
+      "repair_success": true,
+      "before_diagnosis": {
+        "failure_detected": true,
+        "failure_code": "F2_STALE_DOCUMENT",
+        "root_component": "temporal_evidence_layer",
+        "confidence": 0.8,
+        "recommended_repair": "TEMPORAL_FILTER_RETRIEVAL",
+        "evidence": [
+          "20.00% of retrieved chunks are not marked as latest."
+        ]
+      },
+      "after_diagnosis": {
+        "failure_detected": false,
+        "failure_code": null,
+        "root_component": null,
+        "confidence": 0.8,
+        "recommended_repair": null,
+        "evidence": [
+          "No baseline failure rule fired."
+        ]
+      },
+      "before_metrics": {
+        "example_id": "drift_002",
+        "context_precision": 0.8,
+        "context_recall": 1.0,
+        "answer_relevance": 1.0,
+        "faithfulness": 0.6923,
+        "unsupported_claim_rate": 0.3077,
+        "stale_evidence_rate": 0.2,
+        "retrieved_chunks": 5,
+        "failure_detected": true,
+        "failure_code": "F2_STALE_DOCUMENT",
+        "expected_failure_type": "F2_STALE_DOCUMENT",
+        "diagnosis_correct": true,
+        "stale_chunks": 1,
+        "conflicting_versions_detected": true
+      },
+      "after_metrics": {
+        "example_id": "drift_002",
+        "context_precision": 0.75,
+        "context_recall": 1.0,
+        "answer_relevance": 1.0,
+        "faithfulness": 0.8333,
+        "unsupported_claim_rate": 0.1667,
+        "stale_evidence_rate": 0.0,
+        "retrieved_chunks": 4,
+        "failure_detected": false,
+        "failure_code": null,
+        "expected_failure_type": "F2_STALE_DOCUMENT",
+        "diagnosis_correct": false,
+        "stale_chunks": 0,
+        "conflicting_versions_detected": false
+      },
+      "deltas": {
+        "context_precision_delta": -0.05,
+        "context_recall_delta": 0.0,
+        "answer_relevance_delta": 0.0,
+        "faithfulness_delta": 0.141,
+        "unsupported_claim_rate_delta": -0.141,
+        "stale_evidence_rate_delta": -0.2,
+        "stale_chunk_delta": -1
+      },
+      "before_answer": "Baseline answer generated from retrieved evidence. The most relevant indexed evidence suggests:\n\n[1] # RAGOps Retention Policy RAGOps Sentinel stores query traces, retrieved evidence, citations, and diagnosis records for 7 days. The old policy was designed for short debugging windows and low storage cost. ## Operational rule For production incident review, engineers should only rely on the latest valid retention policy. Older versions may be kept for audit history but must not be used as current guidance.\n\n[2] # RAGOps Retention Policy RAGOps Sentinel stores query traces, retrieved evidence, citations, and diagnosis records for 90 days. The current policy was updated to support longer incident investigation, compliance review, and evidence-drift analysis. ## Operational rule For production incident review, engineers must use the latest valid retention policy. Older versions are historical records and should be treated as stale evidence.\n\n[3] # MLflow Tracking MLflow Tracking is used to log parameters, metrics, artifacts, source information, and experiment runs. In RAGOps Sentinel, MLflow Tracking records retrieval configuration, diagnosis metrics, repair outcomes, and experiment results. ## Why it matters A research-grade RAG system must be reproducible. Each experiment should record inputs, retrieval strategy, evaluation metrics, and output artifacts.\n\nThis baseline does not claim full semantic reasoning yet; use the citations and diagnosis fields for validation.",
+      "after_answer": "Baseline answer generated from retrieved evidence. The most relevant indexed evidence suggests:\n\n[1] # RAGOps Retention Policy RAGOps Sentinel stores query traces, retrieved evidence, citations, and diagnosis records for 90 days. The current policy was updated to support longer incident investigation, compliance review, and evidence-drift analysis. ## Operational rule For production incident review, engineers must use the latest valid retention policy. Older versions are historical records and should be treated as stale evidence.\n\n[2] # MLflow Tracking MLflow Tracking is used to log parameters, metrics, artifacts, source information, and experiment runs. In RAGOps Sentinel, MLflow Tracking records retrieval configuration, diagnosis metrics, repair outcomes, and experiment results. ## Why it matters A research-grade RAG system must be reproducible. Each experiment should record inputs, retrieval strategy, evaluation metrics, and output artifacts.\n\n[3] # Qdrant Vector Search Qdrant is used as the baseline vector database in RAGOps Sentinel. Each document chunk is converted into a vector and stored with payload metadata such as document identifier, version identifier, section title, and freshness flags. ## Metadata filtering Metadata filters are necessary for temporal retrieval because the system must retrieve the current valid document version when a newer document supersedes an older one.\n\nThis baseline does not claim full semantic reasoning yet; use the citations and diagnosis fields for validation.",
+      "before_version_ids": [
+        "ragops_retention_policy:8b98397a6912",
+        "ragops_retention_policy:a21a23c0ae90",
+        "mlflow_tracking:dd9e5290ac80",
+        "qdrant_vector_search:672228e77f23",
+        "ragops_sentinel_design:c139a13fb1f4"
+      ],
+      "after_version_ids": [
+        "ragops_retention_policy:a21a23c0ae90",
+        "mlflow_tracking:dd9e5290ac80",
+        "qdrant_vector_search:672228e77f23",
+        "ragops_sentinel_design:c139a13fb1f4"
+      ],
+      "latency_ms": 692.35
+    }
+  ]
+}

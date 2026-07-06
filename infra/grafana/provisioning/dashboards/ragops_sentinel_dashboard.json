@@ -1,0 +1,62 @@
+{
+  "uid": "ragops-sentinel",
+  "title": "RAGOps Sentinel Observability",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "10s",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "RAG Query Latency",
+      "gridPos": {"x": 0, "y": 0, "w": 12, "h": 8},
+      "targets": [{"expr": "rate(rag_query_latency_seconds_sum[5m]) / rate(rag_query_latency_seconds_count[5m])", "legendFormat": "mean latency"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "Retrieval Latency",
+      "gridPos": {"x": 12, "y": 0, "w": 12, "h": 8},
+      "targets": [{"expr": "rate(rag_retrieval_latency_seconds_sum[5m]) / rate(rag_retrieval_latency_seconds_count[5m])", "legendFormat": "mean retrieval latency"}]
+    },
+    {
+      "type": "stat",
+      "title": "Stale Evidence Rate",
+      "gridPos": {"x": 0, "y": 8, "w": 6, "h": 6},
+      "targets": [{"expr": "rag_stale_evidence_rate", "legendFormat": "stale rate"}]
+    },
+    {
+      "type": "stat",
+      "title": "Retrieved Chunks",
+      "gridPos": {"x": 6, "y": 8, "w": 6, "h": 6},
+      "targets": [{"expr": "rag_retrieved_chunks", "legendFormat": "retrieved chunks"}]
+    },
+    {
+      "type": "bargauge",
+      "title": "Failure Count by Code",
+      "gridPos": {"x": 12, "y": 8, "w": 12, "h": 6},
+      "targets": [{"expr": "rag_failure_count_total", "legendFormat": "{{failure_code}}"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "Repair Attempts",
+      "gridPos": {"x": 0, "y": 14, "w": 12, "h": 8},
+      "targets": [{"expr": "rag_repair_count_total", "legendFormat": "{{action}} success={{success}}"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "Repair Latency",
+      "gridPos": {"x": 12, "y": 14, "w": 12, "h": 8},
+      "targets": [{"expr": "rate(rag_repair_latency_seconds_sum[5m]) / rate(rag_repair_latency_seconds_count[5m])", "legendFormat": "mean repair latency"}]
+    },
+    {
+      "type": "timeseries",
+      "title": "RAG Quality Signals",
+      "gridPos": {"x": 0, "y": 22, "w": 24, "h": 8},
+      "targets": [
+        {"expr": "rag_context_precision", "legendFormat": "context precision"},
+        {"expr": "rag_context_recall", "legendFormat": "context recall"},
+        {"expr": "rag_faithfulness", "legendFormat": "faithfulness"},
+        {"expr": "rag_unsupported_claim_rate", "legendFormat": "unsupported claim rate"}
+      ]
+    }
+  ]
+}

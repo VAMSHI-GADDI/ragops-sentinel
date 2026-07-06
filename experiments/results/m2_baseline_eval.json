@@ -1,0 +1,63 @@
+{
+  "aggregate": {
+    "num_examples": 3,
+    "mean_context_precision": 0.3333,
+    "mean_context_recall": 1.0,
+    "mean_answer_relevance": 1.0,
+    "mean_faithfulness": 0.8632,
+    "mean_unsupported_claim_rate": 0.1368,
+    "mean_stale_evidence_rate": 0.2222,
+    "total_stale_chunks": 2,
+    "diagnosis_accuracy_on_labeled_failures": null
+  },
+  "examples": [
+    {
+      "example_id": "eval_001",
+      "context_precision": 0.3333,
+      "context_recall": 1.0,
+      "answer_relevance": 1.0,
+      "faithfulness": 0.9231,
+      "unsupported_claim_rate": 0.0769,
+      "stale_evidence_rate": 0.3333,
+      "retrieved_chunks": 3,
+      "failure_detected": true,
+      "failure_code": "F2_STALE_DOCUMENT",
+      "expected_failure_type": null,
+      "diagnosis_correct": null,
+      "stale_chunks": 1,
+      "conflicting_versions_detected": true
+    },
+    {
+      "example_id": "eval_002",
+      "context_precision": 0.3333,
+      "context_recall": 1.0,
+      "answer_relevance": 1.0,
+      "faithfulness": 0.8333,
+      "unsupported_claim_rate": 0.1667,
+      "stale_evidence_rate": 0.0,
+      "retrieved_chunks": 3,
+      "failure_detected": false,
+      "failure_code": null,
+      "expected_failure_type": null,
+      "diagnosis_correct": null,
+      "stale_chunks": 0,
+      "conflicting_versions_detected": false
+    },
+    {
+      "example_id": "eval_003",
+      "context_precision": 0.3333,
+      "context_recall": 1.0,
+      "answer_relevance": 1.0,
+      "faithfulness": 0.8333,
+      "unsupported_claim_rate": 0.1667,
+      "stale_evidence_rate": 0.3333,
+      "retrieved_chunks": 3,
+      "failure_detected": true,
+      "failure_code": "F2_STALE_DOCUMENT",
+      "expected_failure_type": null,
+      "diagnosis_correct": null,
+      "stale_chunks": 1,
+      "conflicting_versions_detected": false
+    }
+  ]
+}

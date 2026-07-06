@@ -1,0 +1,68 @@
+{
+  "milestone": "M6_OBSERVABILITY",
+  "source_result": "experiments\\results\\m5_repair_benchmark.json",
+  "summary": {
+    "examples": 2,
+    "before_mean_stale_evidence_rate": 0.2,
+    "after_mean_stale_evidence_rate": 0.0,
+    "stale_evidence_rate_reduction": 0.2,
+    "repair_success_rate": 1.0,
+    "after_mean_context_recall": 1.0,
+    "after_mean_unsupported_claim_rate": 0.1987,
+    "mean_repair_latency_ms": 8215.61,
+    "p95_repair_latency_ms": 15738.88
+  },
+  "slo_checks": [
+    {
+      "name": "post_repair_stale_evidence_rate",
+      "value": 0.0,
+      "threshold": 0.05,
+      "comparator": "<=",
+      "passed": true,
+      "rationale": "After repair, stale evidence should be close to zero in the controlled drift benchmark."
+    },
+    {
+      "name": "repair_success_rate",
+      "value": 1.0,
+      "threshold": 0.8,
+      "comparator": ">=",
+      "passed": true,
+      "rationale": "Targeted repair should succeed for most labeled stale-evidence failures."
+    },
+    {
+      "name": "post_repair_context_recall",
+      "value": 1.0,
+      "threshold": 0.9,
+      "comparator": ">=",
+      "passed": true,
+      "rationale": "Repair should not remove required supporting context."
+    },
+    {
+      "name": "post_repair_unsupported_claim_rate",
+      "value": 0.1987,
+      "threshold": 0.25,
+      "comparator": "<=",
+      "passed": true,
+      "rationale": "Repair should not increase unsupported claims beyond a conservative baseline threshold."
+    },
+    {
+      "name": "mean_repair_latency_ms",
+      "value": 8215.61,
+      "threshold": 5000.0,
+      "comparator": "<=",
+      "passed": false,
+      "rationale": "Local repair should stay within an interactive debugging budget on a small benchmark."
+    }
+  ],
+  "passed": false,
+  "dashboard_panels": [
+    "RAG query latency",
+    "Retrieval latency",
+    "Stale evidence rate",
+    "Failure count by code",
+    "Repair attempts by action/success",
+    "Repair latency",
+    "Unsupported claim rate",
+    "Context precision/recall"
+  ]
+}

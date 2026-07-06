@@ -1,0 +1,17 @@
+{
+  "milestone": "M7_KUBERNETES_DEPLOYMENT",
+  "documents_loaded": 17,
+  "kinds": [
+    "ConfigMap",
+    "Deployment",
+    "Namespace",
+    "Secret",
+    "Service",
+    "StatefulSet"
+  ],
+  "required_kinds_present": true,
+  "required_resources_present": true,
+  "errors": [],
+  "warnings": [],
+  "passed": true
+}

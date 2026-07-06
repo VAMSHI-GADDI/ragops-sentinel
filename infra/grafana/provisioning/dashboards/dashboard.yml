@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: RAGOps Sentinel
+    orgId: 1
+    folder: RAGOps Sentinel
+    type: file
+    disableDeletion: false
+    editable: true
+    options:
+      path: /etc/grafana/provisioning/dashboards
