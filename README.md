@@ -2,17 +2,15 @@
 
 **Evidence-Drift-Aware Failure Diagnosis and Targeted Repair for Production-Style Retrieval-Augmented Generation Systems**
 
-RAGOps Sentinel is a research-grade AI/ML systems prototype for diagnosing and repairing reliability failures in Retrieval-Augmented Generation systems. The project focuses on a failure mode that is especially important in production RAG: the system may retrieve stale, conflicting, incomplete, or wrong-version evidence while still returning a fluent answer.
+RAGOps Sentinel is a research-grade AI/ML systems prototype for diagnosing and repairing reliability failures in Retrieval-Augmented Generation systems. The project focuses on a production-relevant RAG failure mode: a system may retrieve stale, conflicting, incomplete, or wrong-version evidence while still returning a fluent answer.
 
-This project implements a full prototype pipeline covering baseline RAG, evaluation, evidence-drift benchmarking, diagnosis graphs, targeted repair, observability, Kubernetes manifests, and publication/patent-screening artifacts.
+This repository implements a reproducible prototype pipeline covering baseline RAG, evaluation, evidence-drift benchmarking, diagnosis graphs, targeted repair, observability, Kubernetes manifests, and publication/patent-screening artifacts.
 
 ---
 
 ## Project Status
 
 This repository contains a completed and locally verified research prototype.
-
-Validated milestones:
 
 | Milestone | Component                               | Status   |
 | --------- | --------------------------------------- | -------- |
@@ -35,7 +33,7 @@ Local validation:
 
 ## Problem
 
-Modern RAG systems can fail even when retrieval appears to work. In evolving technical documentation, incident runbooks, policy documents, or operational knowledge bases, the retrieved evidence may be:
+Modern RAG systems can fail even when retrieval appears operationally healthy. In evolving technical documentation, incident runbooks, policy documents, or operational knowledge bases, retrieved evidence may be:
 
 * outdated,
 * superseded by a newer version,
@@ -50,32 +48,54 @@ RAGOps Sentinel treats evidence quality, versioning, retrieval behavior, evaluat
 
 ## Core Research Question
 
-Can a production-style RAGOps layer improve reliability by detecting evidence-drift-induced failures, localizing their root cause, and applying targeted repair actions instead of blindly rerunning the full RAG pipeline?
+Can a production-style RAGOps layer improve RAG reliability by detecting evidence-drift-induced failures, localizing their root cause, and applying targeted repair actions instead of blindly rerunning the full RAG pipeline?
 
 ---
 
 ## Key Contributions
 
-1. **Versioned Evidence Ingestion**
-   Documents are ingested with document IDs, version IDs, freshness status, and metadata.
+### 1. Versioned Evidence Ingestion
 
-2. **Evidence-Drift Benchmark**
-   The project includes controlled stale-evidence and wrong-version retrieval fixtures.
+Documents are ingested with document IDs, version IDs, freshness status, validity windows, and metadata.
 
-3. **Sentinel Diagnosis Graph**
-   A graph representation links queries, retrieved chunks, document versions, answer outputs, evaluation metrics, telemetry, failure diagnosis, and repair actions.
+### 2. Evidence-Drift Benchmark
 
-4. **Targeted Repair Policy**
-   The first repair policy detects stale evidence and applies temporal/latest-version retrieval.
+The project includes controlled stale-evidence and wrong-version retrieval fixtures.
 
-5. **Observability Layer**
-   Prometheus-compatible metrics and Grafana dashboard provisioning are included.
+### 3. Sentinel Diagnosis Graph
 
-6. **Kubernetes-Ready Deployment Manifests**
-   The repository includes Kubernetes manifests for the API, Qdrant, Postgres, MLflow, Prometheus, and Grafana.
+A graph representation links:
 
-7. **Research Artifacts**
-   The project generates a technical report, IEEE-style paper draft, reproducibility checklist, and patent-screening memo.
+* user queries,
+* retrieved chunks,
+* document versions,
+* answer outputs,
+* evaluation metrics,
+* telemetry,
+* failure diagnosis,
+* repair recommendations.
+
+### 4. Targeted Repair Policy
+
+The first implemented repair policy detects stale evidence and applies temporal/latest-version retrieval.
+
+### 5. Observability Layer
+
+The project includes Prometheus-compatible metrics and Grafana dashboard provisioning.
+
+### 6. Kubernetes-Ready Deployment Manifests
+
+The repository includes Kubernetes manifests for the API, Qdrant, Postgres, MLflow, Prometheus, and Grafana.
+
+### 7. Research Artifacts
+
+The project generates:
+
+* technical report,
+* IEEE-style paper draft,
+* reproducibility checklist,
+* patent-screening memo,
+* artifact summary.
 
 ---
 
@@ -162,7 +182,9 @@ The targeted repair benchmark tested stale-evidence failures using controlled ev
 | Mean faithfulness           |        0.7308 |       0.8013 |
 | Mean unsupported claim rate |        0.2692 |       0.1987 |
 
-Interpretation: temporal-filter repair removed stale evidence in the controlled benchmark and improved approximate faithfulness and unsupported-claim rate. Context precision decreased slightly, which is reported as a limitation rather than hidden.
+### Interpretation
+
+Temporal-filter repair removed stale evidence in the controlled benchmark and improved approximate faithfulness and unsupported-claim rate. Context precision decreased slightly, which is reported as a limitation rather than hidden.
 
 ---
 
@@ -246,11 +268,11 @@ ragops-sentinel/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/ragops-sentinel.git
+git clone https://github.com/VAMSHI-GADDI/ragops-sentinel.git
 cd ragops-sentinel
 ```
 
-### 2. Create environment
+### 2. Create a virtual environment
 
 ```bash
 python -m venv .venv
@@ -288,7 +310,7 @@ docker compose up -d qdrant postgres mlflow prometheus grafana
 python -m pytest
 ```
 
-Expected:
+Expected result:
 
 ```text
 14 passed
@@ -410,12 +432,13 @@ This is a verified research prototype, not a production-certified system.
 Current limitations:
 
 1. The evidence-drift benchmark is controlled and small.
-2. The current retrieval baseline is intentionally lightweight.
+2. The retrieval baseline is intentionally lightweight.
 3. The repair policy currently focuses on stale-evidence repair.
 4. Failure diagnosis is partly rule-based.
-5. Kubernetes manifests are validated structurally, but not fully production-hardened.
+5. Kubernetes manifests are validated structurally but are not fully production-hardened.
 6. Patentability is not claimed; only a patent-screening memo is generated.
 7. The system does not claim state-of-the-art performance.
+8. The project has not yet been evaluated on large-scale real enterprise corpora.
 
 ---
 
@@ -426,7 +449,7 @@ Planned extensions:
 1. Expand the benchmark to larger technical documentation corpora.
 2. Add stronger embedding models and hybrid retrieval baselines.
 3. Add learned failure-attribution models.
-4. Add more repair policies for chunking failure, low recall, citation mismatch, and evidence conflict.
+4. Add repair policies for chunking failure, low recall, citation mismatch, and evidence conflict.
 5. Add ablation studies.
 6. Add human-labeled validation.
 7. Deploy to a real Kubernetes cluster.
@@ -440,6 +463,10 @@ Developed **RAGOps Sentinel**, a research-grade RAG reliability prototype that d
 
 ---
 
-## Citation / Research Note
+## Research and Patent Note
 
-This project is intended as a research prototype for evidence-drift-aware RAG reliability. It does not claim broad novelty over RAG, GraphRAG, Agentic RAG, RAG evaluation, or corrective retrieval systems. The project’s focused contribution is the integration of temporal evidence drift, diagnosis graphs, targeted repair, and observability-backed evaluation in a reproducible prototype.
+This project is intended as a research prototype for evidence-drift-aware RAG reliability. It does not claim broad novelty over RAG, GraphRAG, Agentic RAG, RAG evaluation, or corrective retrieval systems.
+
+The focused contribution is the integration of temporal evidence drift, diagnosis graphs, targeted repair, and observability-backed evaluation in a reproducible prototype.
+
+Patentability is not claimed. The repository includes a patent-screening memo only.
