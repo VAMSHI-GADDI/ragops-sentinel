@@ -1,273 +1,445 @@
 # RAGOps Sentinel
 
-**Evidence-Drift-Aware Failure Diagnosis and Cost-Aware Repair for Production Agentic RAG Systems**
+**Evidence-Drift-Aware Failure Diagnosis and Targeted Repair for Production-Style Retrieval-Augmented Generation Systems**
 
-This repository is Milestone 1 of the research project. It provides a runnable baseline RAG skeleton with:
+RAGOps Sentinel is a research-grade AI/ML systems prototype for diagnosing and repairing reliability failures in Retrieval-Augmented Generation systems. The project focuses on a failure mode that is especially important in production RAG: the system may retrieve stale, conflicting, incomplete, or wrong-version evidence while still returning a fluent answer.
 
-- FastAPI API service
-- Versioned document ingestion
-- Header-aware chunking
-- Qdrant vector index
-- SQLite/PostgreSQL metadata through SQLAlchemy
-- Baseline retrieval and extractive answer generation
-- Basic failure diagnosis hooks
-- Optional MLflow logging
-- Docker Compose infrastructure for Qdrant, Postgres, MLflow, Prometheus, and Grafana
-
-> This is intentionally a baseline. It is not yet the full Sentinel contribution. The next milestones add evidence drift benchmark, diagnosis graph, failure attribution, cost-aware repair, monitoring, and Kubernetes.
+This project implements a full prototype pipeline covering baseline RAG, evaluation, evidence-drift benchmarking, diagnosis graphs, targeted repair, observability, Kubernetes manifests, and publication/patent-screening artifacts.
 
 ---
 
-## Quickstart: local Python mode
+## Project Status
+
+This repository contains a completed and locally verified research prototype.
+
+Validated milestones:
+
+| Milestone | Component                               | Status   |
+| --------- | --------------------------------------- | -------- |
+| M1        | Baseline RAG system                     | Complete |
+| M2        | Evaluation layer                        | Complete |
+| M3        | Evidence-drift benchmark                | Complete |
+| M4        | Sentinel Diagnosis Graph                | Complete |
+| M5        | Targeted repair policy                  | Complete |
+| M6        | Observability and SLO snapshot          | Complete |
+| M7        | Kubernetes manifests                    | Complete |
+| M8        | Research and patent-screening artifacts | Complete |
+
+Local validation:
+
+```text
+14 passed
+```
+
+---
+
+## Problem
+
+Modern RAG systems can fail even when retrieval appears to work. In evolving technical documentation, incident runbooks, policy documents, or operational knowledge bases, the retrieved evidence may be:
+
+* outdated,
+* superseded by a newer version,
+* semantically similar but operationally wrong,
+* conflicting with another valid source,
+* missing from the index,
+* retrieved correctly but misused by the generator.
+
+RAGOps Sentinel treats evidence quality, versioning, retrieval behavior, evaluation signals, and operational telemetry as first-class components of a diagnosable AI system.
+
+---
+
+## Core Research Question
+
+Can a production-style RAGOps layer improve reliability by detecting evidence-drift-induced failures, localizing their root cause, and applying targeted repair actions instead of blindly rerunning the full RAG pipeline?
+
+---
+
+## Key Contributions
+
+1. **Versioned Evidence Ingestion**
+   Documents are ingested with document IDs, version IDs, freshness status, and metadata.
+
+2. **Evidence-Drift Benchmark**
+   The project includes controlled stale-evidence and wrong-version retrieval fixtures.
+
+3. **Sentinel Diagnosis Graph**
+   A graph representation links queries, retrieved chunks, document versions, answer outputs, evaluation metrics, telemetry, failure diagnosis, and repair actions.
+
+4. **Targeted Repair Policy**
+   The first repair policy detects stale evidence and applies temporal/latest-version retrieval.
+
+5. **Observability Layer**
+   Prometheus-compatible metrics and Grafana dashboard provisioning are included.
+
+6. **Kubernetes-Ready Deployment Manifests**
+   The repository includes Kubernetes manifests for the API, Qdrant, Postgres, MLflow, Prometheus, and Grafana.
+
+7. **Research Artifacts**
+   The project generates a technical report, IEEE-style paper draft, reproducibility checklist, and patent-screening memo.
+
+---
+
+## Architecture
+
+```text
+User Query
+   |
+   v
+FastAPI Query Endpoint
+   |
+   v
+Baseline / Temporal Retrieval
+   |
+   +--> Qdrant Vector Store
+   +--> Versioned Metadata Store
+   +--> Evidence Freshness Logic
+   |
+   v
+Answer Generation
+   |
+   v
+Evaluation Layer
+   |
+   +--> Context Precision
+   +--> Context Recall
+   +--> Answer Relevance
+   +--> Approximate Faithfulness
+   +--> Unsupported Claim Rate
+   |
+   v
+Sentinel Diagnosis Graph
+   |
+   +--> Stale Evidence Detection
+   +--> Conflicting Version Detection
+   +--> Failure Code Assignment
+   +--> Risk Score
+   |
+   v
+Repair Policy
+   |
+   +--> Temporal Filter Retrieval
+   +--> Regenerated Answer
+   +--> Before/After Metrics
+   |
+   v
+Observability
+   |
+   +--> Prometheus Metrics
+   +--> Grafana Dashboard
+   +--> SLO Snapshot
+```
+
+---
+
+## Technology Stack
+
+| Area                | Tools                                         |
+| ------------------- | --------------------------------------------- |
+| API                 | FastAPI, Uvicorn                              |
+| Retrieval           | Qdrant                                        |
+| Metadata            | SQLAlchemy, SQLite/Postgres-compatible design |
+| Evaluation          | Custom deterministic evaluation layer         |
+| Observability       | Prometheus, Grafana                           |
+| Experiment Tracking | MLflow scaffold                               |
+| Deployment          | Docker Compose, Kubernetes manifests          |
+| Testing             | Pytest                                        |
+| Research Artifacts  | Markdown reports, JSON result files           |
+
+---
+
+## Experimental Results
+
+### M5 Repair Benchmark
+
+The targeted repair benchmark tested stale-evidence failures using controlled evidence-drift fixtures.
+
+| Metric                      | Before Repair | After Repair |
+| --------------------------- | ------------: | -----------: |
+| Mean stale evidence rate    |          0.20 |         0.00 |
+| Total stale chunks          |             2 |            0 |
+| Repair success rate         |             — |         1.00 |
+| Mean context recall         |          1.00 |         1.00 |
+| Mean faithfulness           |        0.7308 |       0.8013 |
+| Mean unsupported claim rate |        0.2692 |       0.1987 |
+
+Interpretation: temporal-filter repair removed stale evidence in the controlled benchmark and improved approximate faithfulness and unsupported-claim rate. Context precision decreased slightly, which is reported as a limitation rather than hidden.
+
+---
+
+## Screenshots
+
+### Test Validation
+
+![Pytest 14 Passed](assets/screenshots/01_pytest_14_passed.png)
+
+### Repair Benchmark
+
+![M5 Repair Benchmark](assets/screenshots/02_m5_repair_benchmark.png)
+
+### Observability Snapshot
+
+![M6 Observability](assets/screenshots/03_m6_observability.png)
+
+### Kubernetes Validation
+
+![M7 Kubernetes Validation](assets/screenshots/04_m7_kubernetes_validation.png)
+
+### Research Artifacts
+
+![Research Artifacts](assets/screenshots/05_research_artifacts_folder.png)
+
+### FastAPI Docs
+
+![FastAPI Docs](assets/screenshots/06_fastapi_docs.png)
+
+### Grafana Dashboard
+
+![Grafana Dashboard](assets/screenshots/07_grafana_dashboard.png)
+
+---
+
+## Repository Structure
+
+```text
+ragops-sentinel/
+  apps/
+    api/
+      main.py
+      routes/
+  ragops/
+    ingestion/
+    retrieval/
+    generation/
+    evaluation/
+    sentinel/
+    observability/
+  scripts/
+    ingest_docs.py
+    ingest_drift_fixture.py
+    run_evaluation.py
+    run_drift_benchmark.py
+    run_repair_benchmark.py
+    run_observability_smoke.py
+    validate_kubernetes_manifests.py
+    generate_research_artifacts.py
+  data/
+    raw/
+    eval/
+  experiments/
+    results/
+    diagnosis_graphs/
+  infra/
+    kubernetes/
+    prometheus/
+    grafana/
+  research/
+    artifacts/
+  assets/
+    screenshots/
+  tests/
+```
+
+---
+
+## Quick Start
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/YOUR_USERNAME/ragops-sentinel.git
+cd ragops-sentinel
+```
+
+### 2. Create environment
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-python scripts/ingest_docs.py --raw-dir data/raw
-uvicorn apps.api.main:app --reload --port 8000
 ```
 
-Then test:
+Windows PowerShell:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\.venv\Scripts\Activate.ps1
+```
+
+Linux/macOS:
 
 ```bash
-curl -X POST http://localhost:8000/query \
-  -H "Content-Type: application/json" \
-  -d '{"query":"What is MLflow Tracking used for?","top_k":3}'
+source .venv/bin/activate
 ```
 
-Open API docs:
+Install dependencies:
 
-```text
-http://localhost:8000/docs
+```bash
+python -m pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
----
-
-## Quickstart: Docker Compose infrastructure
+### 3. Start services
 
 ```bash
 docker compose up -d qdrant postgres mlflow prometheus grafana
+```
+
+### 4. Run tests
+
+```bash
+python -m pytest
+```
+
+Expected:
+
+```text
+14 passed
+```
+
+### 5. Ingest documents
+
+```bash
+python scripts/reset_local_state.py
 python scripts/ingest_docs.py --raw-dir data/raw
+python scripts/ingest_drift_fixture.py
+```
+
+### 6. Run benchmarks
+
+```bash
+python scripts/run_evaluation.py --eval-set data/eval/baseline_eval_set.jsonl --top-k 3
+python scripts/run_drift_benchmark.py --eval-set data/eval/evidence_drift_eval_set.jsonl --top-k 5
+python scripts/run_repair_benchmark.py --eval-set data/eval/evidence_drift_eval_set.jsonl --top-k 5
+python scripts/run_observability_smoke.py --repair-result experiments/results/m5_repair_benchmark.json
+python scripts/validate_kubernetes_manifests.py --manifest-dir infra/kubernetes/base
+python scripts/generate_research_artifacts.py
+```
+
+### 7. Start API
+
+```bash
 uvicorn apps.api.main:app --reload --port 8000
 ```
 
-Default service URLs:
-
-- Qdrant: http://localhost:6333
-- MLflow: http://localhost:5000
-- Prometheus: http://localhost:9090
-- Grafana: http://localhost:3000
-
----
-
-## Research milestone status
-
-| Milestone | Status |
-|---|---|
-| M1 Baseline RAG skeleton | Complete scaffold |
-| M2 Evaluation layer | Next |
-| M3 Evidence drift dataset | Pending |
-| M4 Sentinel Diagnosis Graph | Pending |
-| M5 Repair policy | Pending |
-| M6 Monitoring dashboards | Pending |
-| M7 Kubernetes deployment | Pending |
-| M8 Paper + patent screening | Pending |
-
----
-
-## Repository layout
+Open:
 
 ```text
-apps/api/              FastAPI app and routes
-ragops/                Core Python package
-scripts/               CLI utilities
-data/raw/              Seed documents
-infra/                 Docker, Prometheus, Grafana, Kubernetes placeholders
-tests/                 Unit tests
-research/              Proposal, experiment log, patent notes
+http://127.0.0.1:8000/docs
+```
+
+### 8. Open Grafana
+
+```text
+http://localhost:3000
+```
+
+Default local login:
+
+```text
+admin / admin
+```
+
+Dashboard:
+
+```text
+RAGOps Sentinel Observability
 ```
 
 ---
 
-## Important research boundary
+## API Endpoints
 
-This baseline does **not** claim novelty. The novelty candidate is a later mechanism: evidence-drift-aware failure diagnosis and cost-aware repair using a Sentinel Diagnosis Graph.
+| Endpoint                | Purpose                         |
+| ----------------------- | ------------------------------- |
+| `GET /health`           | Service health check            |
+| `GET /metrics`          | Prometheus metrics              |
+| `POST /query`           | Run baseline RAG query          |
+| `POST /evaluate`        | Evaluate an answer/evidence set |
+| `POST /diagnosis-graph` | Generate diagnosis graph        |
+| `POST /repair`          | Apply targeted repair policy    |
 
+---
 
-## Milestone 2: Evaluation Layer
+## Research Artifacts
 
-Run the baseline evaluation after Docker services are running and documents have been ingested:
-
-```powershell
-python scripts/run_evaluation.py --eval-set data/eval/baseline_eval_set.jsonl --top-k 3
-```
-
-The output is written to:
-
-```text
-experiments/results/m2_baseline_eval.json
-```
-
-The deterministic baseline metrics include context precision, context recall, answer relevance, faithfulness, unsupported claim rate, and stale evidence rate. These are transparent scaffolding metrics, not final research-grade evaluation. Later milestones should add stronger RAGAS/ARES-style evaluation and a small human-labeled validation subset.
-
-### Windows note
-
-The ingestion and evaluation scripts now add the project root to `sys.path`, so you should not need to set `PYTHONPATH` manually.
-
-## Milestone 3: Evidence Drift Benchmark
-
-Milestone 3 adds a controlled evidence-drift fixture and benchmark.
-
-### What it adds
-
-- `data/drift/v1/ragops_retention_policy.md`: old retention policy, 7 days.
-- `data/drift/v2/ragops_retention_policy.md`: current retention policy, 90 days.
-- `scripts/reset_local_state.py`: clears local SQLite DB and Qdrant collection.
-- `scripts/ingest_drift_fixture.py`: ingests old and current versions of the same document.
-- `scripts/run_drift_benchmark.py`: compares stale-prone retrieval against latest-only temporal retrieval.
-- `ragops/sentinel/drift.py`: computes evidence-drift features such as stale chunks and conflicting document versions.
-
-### Run Milestone 3 from a clean local state
-
-```powershell
-python scripts/reset_local_state.py
-python scripts/ingest_docs.py --raw-dir data/raw
-python scripts/ingest_drift_fixture.py
-python scripts/run_drift_benchmark.py --eval-set data/eval/evidence_drift_eval_set.jsonl --top-k 5
-```
-
-The benchmark writes:
+Generated files are available under:
 
 ```text
-experiments/results/m3_evidence_drift_benchmark.json
+research/artifacts/
 ```
 
-### Interpretation
+Included artifacts:
 
-This milestone does not claim final novelty. It creates the first reproducible failure-injection benchmark for stale and wrong-version evidence. The key comparison is:
+| File                           | Purpose                                 |
+| ------------------------------ | --------------------------------------- |
+| `artifact_summary.json`        | Summary of generated evidence artifacts |
+| `technical_report.md`          | Technical report                        |
+| `ieee_paper_draft.md`          | IEEE-style paper draft                  |
+| `patent_screening_memo.md`     | Patent-screening memo                   |
+| `reproducibility_checklist.md` | Reproducibility checklist               |
 
-- baseline retrieval without temporal filtering,
-- temporal retrieval with `latest_only=True`.
+---
 
-If the baseline retrieves stale chunks and the temporal filter removes them, then the evidence-drift layer is functioning as intended.
+## Kubernetes
 
-## Milestone 4: Sentinel Diagnosis Graph
-
-M4 adds the first concrete diagnosis artifact for the research claim. It builds a graph that
-connects the user query, retrieval run, retrieved chunks, document versions, answer, failure
-diagnosis, evaluation metrics, and telemetry.
-
-Run:
-
-```powershell
-python scripts/run_diagnosis_graph.py --eval-set data/eval/evidence_drift_eval_set.jsonl --top-k 5
-```
-
-Output:
+Kubernetes manifests are located in:
 
 ```text
-experiments/diagnosis_graphs/manifest.json
-experiments/diagnosis_graphs/*.json
-experiments/diagnosis_graphs/*.dot
+infra/kubernetes/base/
 ```
 
-API endpoint:
-
-```text
-POST /diagnosis-graph
-```
-
-This milestone still does not claim patentability. It creates the mechanism that later
-experiments can test for root-cause attribution and repair routing.
-
-
-## Milestone 5: Targeted Repair Policy
-
-Milestone 5 adds the first measurable repair loop:
-
-- diagnoses stale evidence failures,
-- chooses `TEMPORAL_FILTER_RETRIEVAL`,
-- reruns retrieval using latest-only evidence,
-- regenerates the answer,
-- compares before/after metrics,
-- writes `experiments/results/m5_repair_benchmark.json`.
-
-Run:
-
-```powershell
-python scripts/reset_local_state.py
-python scripts/ingest_docs.py --raw-dir data/raw
-python scripts/ingest_drift_fixture.py
-python scripts/run_repair_benchmark.py --eval-set data/eval/evidence_drift_eval_set.jsonl --top-k 5
-```
-
-This is still a transparent baseline, not a final learned repair policy.
-
-## Milestone 6: Observability Layer
-
-Milestone 6 adds production-style observability around the RAG pipeline:
-
-- Prometheus metrics for retrieval, stale evidence, quality signals, failure counts, repair attempts, and repair latency.
-- Grafana provisioning for a RAGOps Sentinel dashboard.
-- Offline observability snapshot generation from benchmark outputs.
-- SLO-style checks for stale evidence, repair success, recall preservation, unsupported-claim rate, and repair latency.
-
-Run after Milestone 5 repair benchmark:
+Validate manifests:
 
 ```bash
-python scripts/run_observability_smoke.py --repair-result experiments/results/m5_repair_benchmark.json
-```
-
-Output:
-
-```text
-experiments/results/m6_observability_snapshot.json
-```
-
-## Milestone 7 — Kubernetes Deployment Validation
-
-M7 adds Kubernetes manifests under `infra/kubernetes/base` and a static validation script.
-
-Run:
-
-```powershell
-python -m pytest
 python scripts/validate_kubernetes_manifests.py --manifest-dir infra/kubernetes/base
 ```
 
-Expected result:
+Optional local deployment with a Kubernetes cluster:
 
-```text
-13 passed
-Wrote experiments/results/m7_kubernetes_validation.json
-```
-
-Optional local cluster deployment:
-
-```powershell
+```bash
 docker build -t ragops-sentinel-api:local .
 kubectl apply -k infra/kubernetes/base
 kubectl -n ragops-sentinel get pods
 kubectl -n ragops-sentinel port-forward svc/rag-api 8000:8000
 ```
 
-This milestone validates deployment structure. It does not yet claim production hardening.
+---
 
-## Milestone 8 — Publication / Patent-Screening Package
+## Limitations
 
-Generate the research artifact package after running the benchmark scripts:
+This is a verified research prototype, not a production-certified system.
 
-```bash
-python scripts/generate_research_artifacts.py
-```
+Current limitations:
 
-Outputs are written to `research/artifacts/`:
+1. The evidence-drift benchmark is controlled and small.
+2. The current retrieval baseline is intentionally lightweight.
+3. The repair policy currently focuses on stale-evidence repair.
+4. Failure diagnosis is partly rule-based.
+5. Kubernetes manifests are validated structurally, but not fully production-hardened.
+6. Patentability is not claimed; only a patent-screening memo is generated.
+7. The system does not claim state-of-the-art performance.
 
-- `technical_report.md`
-- `ieee_paper_draft.md`
-- `patent_screening_memo.md`
-- `reproducibility_checklist.md`
-- `artifact_summary.json`
+---
 
-Important: the patent memo is a screening aid only. It does not claim patentability.
+## Future Work
+
+Planned extensions:
+
+1. Expand the benchmark to larger technical documentation corpora.
+2. Add stronger embedding models and hybrid retrieval baselines.
+3. Add learned failure-attribution models.
+4. Add more repair policies for chunking failure, low recall, citation mismatch, and evidence conflict.
+5. Add ablation studies.
+6. Add human-labeled validation.
+7. Deploy to a real Kubernetes cluster.
+8. Convert the IEEE draft into a workshop or conference submission.
+
+---
+
+## Suggested Resume Bullet
+
+Developed **RAGOps Sentinel**, a research-grade RAG reliability prototype that detects stale evidence, generates diagnosis graphs, and applies temporal-filter repair, reducing stale-evidence rate from **20% to 0%** on a controlled evidence-drift benchmark with reproducible evaluation artifacts, Prometheus/Grafana observability, and Kubernetes-ready manifests.
+
+---
+
+## Citation / Research Note
+
+This project is intended as a research prototype for evidence-drift-aware RAG reliability. It does not claim broad novelty over RAG, GraphRAG, Agentic RAG, RAG evaluation, or corrective retrieval systems. The project’s focused contribution is the integration of temporal evidence drift, diagnosis graphs, targeted repair, and observability-backed evaluation in a reproducible prototype.
