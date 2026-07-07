@@ -21,13 +21,14 @@ def main() -> None:
             "--manifest-dir",
             "infra/kubernetes/base",
         ],
+        [sys.executable, "scripts/validate_airflow_dag.py"],
         [sys.executable, "scripts/generate_research_artifacts.py"],
     ]
 
     for command in commands:
         run(command, root)
 
-    print("\nM9 local CI checks passed.")
+    print("\nLocal CI checks passed.")
 
 
 if __name__ == "__main__":

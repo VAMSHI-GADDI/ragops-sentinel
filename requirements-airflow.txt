@@ -1,0 +1,6 @@
+﻿# Optional dependencies for running the Airflow orchestration layer.
+# Recommended: use Python 3.11 or an Airflow Docker image instead of the main local venv.
+
+apache-airflow>=2.10,<3.3
+apache-airflow-providers-standard>=1.0
+pendulum>=3.0

@@ -35,6 +35,10 @@ jobs:
         run: |
           python scripts/validate_kubernetes_manifests.py --manifest-dir infra/kubernetes/base
 
+      - name: Validate Airflow DAG
+        run: |
+          python scripts/validate_airflow_dag.py
+
       - name: Generate research artifacts
         run: |
           python scripts/generate_research_artifacts.py
