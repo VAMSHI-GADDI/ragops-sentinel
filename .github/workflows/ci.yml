@@ -51,6 +51,14 @@ jobs:
         run: |
           python scripts/validate_llm_providers.py
 
+      - name: Validate fine-tuning dataset
+        run: |
+          python scripts/validate_fine_tuning_dataset.py
+
+      - name: Prepare fine-tuning artifacts
+        run: |
+          python scripts/prepare_fine_tuning_artifacts.py
+
       - name: Generate research artifacts
         run: |
           python scripts/generate_research_artifacts.py

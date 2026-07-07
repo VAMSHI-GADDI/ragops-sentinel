@@ -1,0 +1,25 @@
+{
+  "milestone": "M15_LORA_PEFT_FINE_TUNING_READY_WORKFLOW",
+  "base_model": "distilgpt2",
+  "dataset_path": "data/fine_tuning/failure_router_train.jsonl",
+  "output_dir": "models/failure_router_lora",
+  "example_count": 10,
+  "method": "LoRA / PEFT",
+  "lora_config": {
+    "r": 8,
+    "lora_alpha": 16,
+    "lora_dropout": 0.05,
+    "target_modules": [
+      "c_attn",
+      "c_proj"
+    ]
+  },
+  "training_arguments": {
+    "learning_rate": 0.0002,
+    "num_train_epochs": 1,
+    "per_device_train_batch_size": 1,
+    "max_length": 512
+  },
+  "ci_safe": true,
+  "live_training_executed": false
+}
