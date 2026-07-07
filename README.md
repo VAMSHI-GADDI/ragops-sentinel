@@ -476,3 +476,23 @@ Patentability is not claimed. The repository includes a patent-screening memo on
 
 
 
+
+
+## Latest Validated Milestone
+
+| Milestone | Capability | Status |
+|---|---|---|
+| M16 | Helm, Terraform, and inference optimization | Complete |
+| M17 | Final portfolio release package | Complete |
+
+
+
+## Recruiter Review Path
+
+1. README.md
+2. docs/recruiter_project_summary.md
+3. docs/architecture.md
+4. docs/skills_matrix.md
+5. docs/interview_talking_points.md
+6. docs/repository_map.md
+
