@@ -1,0 +1,11 @@
+﻿apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ragops-sentinel.fullname" . }}-config
+  labels:
+    {{- include "ragops-sentinel.labels" . | nindent 4 }}
+data:
+  APP_ENV: {{ .Values.env.appEnv | quote }}
+  LLM_PROVIDER: {{ .Values.env.llmProvider | quote }}
+  LLM_MODEL_ID: {{ .Values.env.llmModelId | quote }}
+  QDRANT_URL: {{ .Values.env.qdrantUrl | quote }}

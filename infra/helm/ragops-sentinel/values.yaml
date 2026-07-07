@@ -1,0 +1,41 @@
+﻿replicaCount: 1
+
+image:
+  repository: ragops-sentinel-api
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8000
+
+env:
+  appEnv: production
+  llmProvider: mock
+  llmModelId: mock-ragops-local
+  qdrantUrl: http://ragops-sentinel-qdrant:6333
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+
+qdrant:
+  enabled: true
+  image: qdrant/qdrant:v1.12.4
+  port: 6333
+  storageSize: 1Gi
+
+prometheus:
+  scrape:
+    enabled: true
+    path: /metrics
+    port: "8000"
+
+ingress:
+  enabled: false
+  className: ""
+  host: ragops.local

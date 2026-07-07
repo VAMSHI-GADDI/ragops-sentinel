@@ -1,0 +1,18 @@
+﻿{{- if .Values.qdrant.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ragops-sentinel.fullname" . }}-qdrant
+  labels:
+    {{- include "ragops-sentinel.labels" . | nindent 4 }}
+    app.kubernetes.io/component: qdrant
+spec:
+  selector:
+    app.kubernetes.io/name: {{ include "ragops-sentinel.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: qdrant
+  ports:
+    - name: http
+      port: {{ .Values.qdrant.port }}
+      targetPort: http
+{{- end }}

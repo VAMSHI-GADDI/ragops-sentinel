@@ -1,0 +1,15 @@
+﻿apiVersion: v2
+name: ragops-sentinel
+description: Helm chart for deploying the RAGOps Sentinel API and supporting services.
+type: application
+version: 0.1.0
+appVersion: "0.16.0"
+keywords:
+  - rag
+  - llmops
+  - ragops
+  - observability
+  - qdrant
+  - fastapi
+maintainers:
+  - name: Vamshi Gaddi

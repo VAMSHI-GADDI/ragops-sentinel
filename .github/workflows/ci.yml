@@ -59,6 +59,14 @@ jobs:
         run: |
           python scripts/prepare_fine_tuning_artifacts.py
 
+      - name: Run inference benchmark
+        run: |
+          python scripts/run_inference_benchmark.py
+
+      - name: Validate deployment packaging
+        run: |
+          python scripts/validate_deployment_packaging.py
+
       - name: Generate research artifacts
         run: |
           python scripts/generate_research_artifacts.py

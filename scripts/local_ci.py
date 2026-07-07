@@ -27,6 +27,8 @@ def main() -> None:
         [sys.executable, "scripts/validate_llm_providers.py"],
         [sys.executable, "scripts/validate_fine_tuning_dataset.py"],
         [sys.executable, "scripts/prepare_fine_tuning_artifacts.py"],
+        [sys.executable, "scripts/run_inference_benchmark.py"],
+        [sys.executable, "scripts/validate_deployment_packaging.py"],
         [sys.executable, "scripts/generate_research_artifacts.py"],
     ]
 
