@@ -43,6 +43,10 @@ jobs:
         run: |
           python scripts/validate_spark_job.py
 
+      - name: Validate security guardrails
+        run: |
+          python scripts/validate_security_guardrails.py
+
       - name: Generate research artifacts
         run: |
           python scripts/generate_research_artifacts.py
