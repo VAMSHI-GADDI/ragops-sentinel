@@ -47,6 +47,10 @@ jobs:
         run: |
           python scripts/validate_security_guardrails.py
 
+      - name: Validate LLM providers
+        run: |
+          python scripts/validate_llm_providers.py
+
       - name: Generate research artifacts
         run: |
           python scripts/generate_research_artifacts.py

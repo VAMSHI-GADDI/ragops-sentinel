@@ -24,6 +24,7 @@ def main() -> None:
         [sys.executable, "scripts/validate_airflow_dag.py"],
         [sys.executable, "scripts/validate_spark_job.py"],
         [sys.executable, "scripts/validate_security_guardrails.py"],
+        [sys.executable, "scripts/validate_llm_providers.py"],
         [sys.executable, "scripts/generate_research_artifacts.py"],
     ]
 

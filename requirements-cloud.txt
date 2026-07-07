@@ -1,0 +1,5 @@
+﻿# Optional dependencies for managed cloud AI providers.
+# These are not required for the default mock provider or CI validation.
+
+boto3>=1.34
+openai>=1.0
