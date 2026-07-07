@@ -12,21 +12,30 @@ This repository implements a reproducible prototype pipeline covering baseline R
 
 This repository contains a completed and locally verified research prototype.
 
-| Milestone | Component                               | Status   |
-| --------- | --------------------------------------- | -------- |
-| M1        | Baseline RAG system                     | Complete |
-| M2        | Evaluation layer                        | Complete |
-| M3        | Evidence-drift benchmark                | Complete |
-| M4        | Sentinel Diagnosis Graph                | Complete |
-| M5        | Targeted repair policy                  | Complete |
-| M6        | Observability and SLO snapshot          | Complete |
-| M7        | Kubernetes manifests                    | Complete |
-| M8        | Research and patent-screening artifacts | Complete |
+| Milestone | Component | Status |
+| --------- | --------- | ------ |
+| M1 | Baseline RAG system | Complete |
+| M2 | Evaluation layer | Complete |
+| M3 | Evidence-drift benchmark | Complete |
+| M4 | Sentinel Diagnosis Graph | Complete |
+| M5 | Targeted repair policy | Complete |
+| M6 | Observability and SLO snapshot | Complete |
+| M7 | Kubernetes manifests | Complete |
+| M8 | Research and patent-screening artifacts | Complete |
+| M9 | CI/CD and GitHub Actions | Complete |
+| M10 | LangGraph/LangChain agent workflow | Complete |
+| M11 | Airflow orchestration | Complete |
+| M12 | PySpark-compatible preprocessing | Complete |
+| M13 | AI security and RAG guardrails | Complete |
+| M14 | Managed cloud LLM provider abstraction | Complete |
+| M15 | LoRA/PEFT fine-tuning-ready failure router | Complete |
+| M16 | Helm, Terraform, and inference optimization | Complete |
+| M17 | Final portfolio release package | Complete |
 
 Local validation:
 
 ```text
-14 passed
+62 passed
 ```
 
 ---
@@ -177,7 +186,7 @@ The targeted repair benchmark tested stale-evidence failures using controlled ev
 | --------------------------- | ------------: | -----------: |
 | Mean stale evidence rate    |          0.20 |         0.00 |
 | Total stale chunks          |             2 |            0 |
-| Repair success rate         |             â€” |         1.00 |
+| Repair success rate         |             - |         1.00 |
 | Mean context recall         |          1.00 |         1.00 |
 | Mean faithfulness           |        0.7308 |       0.8013 |
 | Mean unsupported claim rate |        0.2692 |       0.1987 |
@@ -192,7 +201,7 @@ Temporal-filter repair removed stale evidence in the controlled benchmark and im
 
 ### Test Validation
 
-![Pytest 14 Passed](assets/screenshots/01_pytest_14_passed.png)
+![Pytest 62 passed](assets/screenshots/01_pytest_14_passed.png)
 
 ### Repair Benchmark
 
@@ -313,7 +322,7 @@ python -m pytest
 Expected result:
 
 ```text
-14 passed
+62 passed
 ```
 
 ### 5. Ingest documents
@@ -495,4 +504,5 @@ Patentability is not claimed. The repository includes a patent-screening memo on
 4. docs/skills_matrix.md
 5. docs/interview_talking_points.md
 6. docs/repository_map.md
+
 
