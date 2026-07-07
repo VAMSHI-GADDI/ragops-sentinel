@@ -1,4 +1,4 @@
-# RAGOps Sentinel
+﻿# RAGOps Sentinel
 
 **Evidence-Drift-Aware Failure Diagnosis and Targeted Repair for Production-Style Retrieval-Augmented Generation Systems**
 
@@ -177,7 +177,7 @@ The targeted repair benchmark tested stale-evidence failures using controlled ev
 | --------------------------- | ------------: | -----------: |
 | Mean stale evidence rate    |          0.20 |         0.00 |
 | Total stale chunks          |             2 |            0 |
-| Repair success rate         |             — |         1.00 |
+| Repair success rate         |             â€” |         1.00 |
 | Mean context recall         |          1.00 |         1.00 |
 | Mean faithfulness           |        0.7308 |       0.8013 |
 | Mean unsupported claim rate |        0.2692 |       0.1987 |
@@ -470,3 +470,4 @@ This project is intended as a research prototype for evidence-drift-aware RAG re
 The focused contribution is the integration of temporal evidence drift, diagnosis graphs, targeted repair, and observability-backed evaluation in a reproducible prototype.
 
 Patentability is not claimed. The repository includes a patent-screening memo only.
+
