@@ -22,6 +22,7 @@ def main() -> None:
             "infra/kubernetes/base",
         ],
         [sys.executable, "scripts/validate_airflow_dag.py"],
+        [sys.executable, "scripts/validate_spark_job.py"],
         [sys.executable, "scripts/generate_research_artifacts.py"],
     ]
 

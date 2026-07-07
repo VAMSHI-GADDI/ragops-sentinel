@@ -1,0 +1,4 @@
+﻿# Optional dependencies for running the Spark preprocessing layer.
+# Recommended: run with Python 3.11 and Java installed, or inside a Spark/Databricks environment.
+
+pyspark>=3.5
